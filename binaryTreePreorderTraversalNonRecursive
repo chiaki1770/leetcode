@@ -1,10 +1,9 @@
 def preorderTraversal(self, root):
-        # write your code here
         if root is None:
             return []
         stack = [root]
         result = []
-        
+
         while stack:
             node = stack.pop()
             result.append(node.val)
@@ -12,5 +11,5 @@ def preorderTraversal(self, root):
                 stack.append(node.right)
             if node.left:
                 stack.append(node.left)
-                
+
         return result
