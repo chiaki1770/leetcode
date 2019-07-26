@@ -1,0 +1,8 @@
+# 将数组排序后，取出所有奇数位（下标为偶数）求和
+class Solution:
+    def arrayPairSum(self, nums: List[int]) -> int:
+        nums = sorted(nums)
+        res = 0
+        for i in range(0, len(nums), 2):
+            res += nums[i]
+        return res
