@@ -1,0 +1,17 @@
+# binary search: 注意要找符合条件的最小的elements，所以不能直接A[mid] == mid: return mid
+class Solution:
+    def fixedPoint(self, A: List[int]) -> int:
+        start, end = 0, len(A) - 1
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            if A[mid] < mid:
+                start = mid
+            else:
+                end = mid
+                
+        if A[start] == start:
+            return start
+        elif A[end] == end:
+            return end
+        else:
+            return -1
