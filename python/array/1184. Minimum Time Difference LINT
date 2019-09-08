@@ -1,0 +1,23 @@
+# https://www.lintcode.com/problem/minimum-time-difference/description
+class Solution:
+    """
+    @param timePoints: a list of 24-hour clock time points
+    @return: the minimum minutes difference between any two time points in the list
+    """
+    def findMinDifference(self, timePoints):
+        # Write your code here
+        new_time = []
+        
+        for timePoint in timePoints:
+            new_timePoint = timePoint.split(":")
+            new_time.append(int(new_timePoint[0]) * 60 + int(new_timePoint[1]))
+            
+        new_time = sorted(new_time)
+        min_minutes = 24 * 60
+        
+        for i in range(len(new_time)-1):
+            min_minutes = min(min_minutes, abs(new_time[i+1] - new_time[i]))
+            
+        min_minutes = min(min_minutes, 24 * 60 - new_time[-1] + new_time[0])
+        
+        return min_minutes
