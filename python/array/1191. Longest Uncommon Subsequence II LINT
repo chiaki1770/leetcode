@@ -1,0 +1,30 @@
+# test case: ["aabbcc", "aabbcc","cbss", "cbs", "ca"]
+class Solution:
+    """
+    @param strs: List[str]
+    @return: return an integer
+    """
+    def findLUSlength(self, strs):
+        # write your code here
+        
+        def subseq(w1, w2):
+            i = 0
+            print("w1: ", w1)
+            print("w2: ", w2)
+            for c in w2:
+                if i < len(w1) and w1[i] == c:
+                    print("c: ", c)
+                    i += 1 
+            print("i: ", i)
+            print(i == len(w1))
+            return i == len(w1)
+        
+        strs.sort(key = len, reverse = True)
+        for i, word1 in enumerate(strs):
+            print("IIIII:" , i)
+            if all(not subseq(word1, word2) for j, word2 in enumerate(strs) if i != j):
+                return len(word1)
+                
+        return -1
+        
+        
