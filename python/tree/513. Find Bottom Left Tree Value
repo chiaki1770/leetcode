@@ -1,0 +1,22 @@
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: a root of tree
+    @return: return a integer
+    """
+    def findBottomLeftValue(self, root):
+        # write your code here
+        queue = [root]
+        for node in queue:
+            print(len(queue))
+            print("node.val ", node.val)
+            queue += filter(None, (node.right, node.left))
+        
+        return node.val
