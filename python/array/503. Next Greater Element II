@@ -1,0 +1,14 @@
+class Solution:
+    """
+    @param nums: an array
+    @return: the Next Greater Number for every element
+    """
+    def nextGreaterElements(self, nums):
+        # Write your code here
+        stack, res = [], [-1] * len(nums)
+        for i in range(len(nums) * 2):
+            i = i % len(nums) if i >= len(nums) else i
+            while stack and nums[stack[-1]] < nums[i]:
+                res[stack.pop()] = nums[i]
+            stack.append(i)
+        return res
