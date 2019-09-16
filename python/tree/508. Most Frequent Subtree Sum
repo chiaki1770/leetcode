@@ -1,0 +1,31 @@
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the root
+    @return: all the values with the highest frequency in any order
+    """
+    def findFrequentTreeSum(self, root):
+        # Write your code here
+        if root is None: 
+            return []
+            
+        def dfs(node):
+            if node is None: 
+                return 0
+            
+            s = node.val + dfs(node.left) + dfs(node.right)
+            count[s] += 1 
+            return s
+            
+        count = collections.Counter()
+        dfs(root)
+        maxCount = max(count.values())
+        
+        return [s for s in count if count[s] == maxCount]
