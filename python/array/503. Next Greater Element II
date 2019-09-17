@@ -12,3 +12,25 @@ class Solution:
                 res[stack.pop()] = nums[i]
             stack.append(i)
         return res
+        
+        
+        
+class Solution:
+    """
+    @param nums: an array
+    @return: the Next Greater Number for every element
+    """
+    def nextGreaterElements(self, nums):
+        # Write your code here
+        stack, res = [], [-1] * len(nums)
+        for i in range(len(nums) * 2-1):
+            i = i % len(nums) if i >= len(nums) else i
+            # print("i: " + str(i))
+            while stack and nums[stack[-1]] < nums[i]:
+                res[stack.pop()] = nums[i]
+                # print("stack1: " + str(stack))
+                # print("res1: " + str(res))
+            
+            stack.append(i)
+            # print("stack: " + str(stack))
+        return res
