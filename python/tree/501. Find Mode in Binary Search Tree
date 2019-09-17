@@ -1,0 +1,28 @@
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: a root of integer
+    @return: return a integer list
+    """
+    def findMode(self, root):
+        # write your code here
+        def dfs(node):
+            if node:
+                count[node.val] += 1 
+                dfs(node.left)
+                dfs(node.right)
+            else: 
+                return
+                
+        count = collections.Counter()
+        dfs(root)
+        maxCount = max(count.values())
+        
+        return [i for i in count if count[i] == maxCount]
