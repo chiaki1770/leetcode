@@ -1,0 +1,26 @@
+class Solution:
+    """
+    @param matrix: a 2D array
+    @return: return a list of integers
+    """
+    def findDiagonalOrder(self, matrix):
+        # write your code here
+        result = []
+        if matrix is None or len(matrix) == 0 or len(matrix[0]) == 0:
+            return result
+        
+        m = len(matrix)
+        n = len(matrix[0])
+        
+        lines = collections.defaultdict(list)
+        for i in range(m):
+            for j in range(n):
+                lines[i+j].append(matrix[i][j])
+                
+        for k in range(m+n-1):
+            if k % 2 == 0:
+                result += lines[k][::-1]
+            else:
+                result += lines[k]
+                
+        return result
