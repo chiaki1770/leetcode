@@ -1,0 +1,25 @@
+class Solution:
+    """
+    @param nums: an integer array
+    @return: all the different possible increasing subsequences of the given array
+    """
+    def findSubsequences(self, nums):
+        # Write your code here
+        res = []
+        self.dfs(res, nums, [], 0)
+        return res
+
+    def dfs(self, res, nums, tmp, index):
+        if index <= len(nums) and len(tmp) > 1:
+            res.append(tmp[:])
+        
+        used = {}
+        for i in range(index, len(nums)):
+            if len(tmp) > 0 and tmp[-1] > nums[i]:
+                continue
+            if nums[i] in used:
+                continue
+            used[nums[i]] = True
+            tmp.append(nums[i])
+            self.dfs(res, nums, tmp, i + 1)
+            tmp.pop()
