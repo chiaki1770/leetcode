@@ -1,0 +1,11 @@
+class Solution:
+    """
+    @param people: a random list of people
+    @return: the queue that be reconstructed
+    """
+    def reconstructQueue(self, people):
+        # write your code here
+        queue = []
+        for person in sorted(people, key = lambda x: (-x[0], x[1])):
+            queue.insert(person[1], person)
+        return queue
