@@ -1,0 +1,26 @@
+#Solution1
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        ransom = collections.Counter(ransomNote)
+        mag = collections.Counter(magazine)
+        
+        for key in ransom.keys():
+            if key not in mag or mag[key] < ransom[key]:
+                return False
+            
+        return True
+
+#Solution2
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        arr = [0] * 26
+        for c in magazine:
+            arr[ord(c) - ord('a')] += 1
+        for c in ransomNote:
+            arr[ord(c) - ord('a')] -= 1
+            if arr[ord(c) - ord('a')] < 0:
+                return False
+            
+        return True
