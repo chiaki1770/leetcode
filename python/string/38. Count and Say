@@ -1,0 +1,44 @@
+# n = 1   res = 1
+# n = 2   res = 11
+# n = 3   res = 21
+# n = 4   res = 1211
+# n = 5   res = 111221
+# n = 6   res = 312211
+# n = 7   res = 13112221
+# n = 8   res = 1113213211
+class Solution:
+    memo = {}
+    def countAndSay(self, n: int) -> str:
+        self.memo[1] = "1"
+        self.memo[2] = "11"
+        
+        if n <= 2:
+            return self.memo[n]
+        
+        curr = ''
+        
+        for i in range(3, n+1):
+            if i - 1 in self.memo:
+                prev = self.memo[i-1]
+            else:
+                prev = curr
+            curr = self.count(prev)
+            
+        return curr
+    
+    def count(self, s):
+        start = 0
+        n = len(s)
+        res = ''
+        
+        while start < n:
+            count = 1
+            
+            while start + 1 < n and s[start] == s[start + 1]:
+                start += 1
+                count += 1
+                
+            res += str(count) + s[start]
+            start += 1
+            
+        return res
