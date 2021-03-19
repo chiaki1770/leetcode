@@ -1,0 +1,40 @@
+CYCLE = 24*60
+class Solution:
+    def findMinDifference(self, timePoints: List[str]) -> int:
+        if len(timePoints) > CYCLE:
+            return 0
+        
+        minutes = [0] * CYCLE
+        
+        max_time = 0
+        
+        for time in timePoints:
+            time_minute = self.convert(time)
+            minutes[time_minute] += 1
+            
+            if minutes[time_minute] > 1:
+                return 0
+            
+            if time_minute > max_time:
+                max_time = time_minute
+                
+        diff_min = CYCLE
+        
+        prev = None
+        
+        for index in range(CYCLE):
+            if minutes[index] == 0:
+                continue
+            if prev is None:
+                diff = index - max_time + CYCLE
+            else:
+                diff = index - prev
+                
+            diff_min = min(diff, diff_min)
+            prev = index
+            
+        return diff_min
+    
+    def convert(self, s):
+        time = s.split(':')
+        return int(time[0]) * 60 + int(time[1])
