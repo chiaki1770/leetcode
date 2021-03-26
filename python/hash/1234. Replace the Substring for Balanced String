@@ -1,0 +1,36 @@
+class Solution:
+    def balancedString(self, s: str) -> int:
+        times = len(s) // 4
+        count = collections.Counter(s)
+        d = collections.defaultdict(int)
+        
+        for i in ['Q', 'W', 'E', 'R']:
+            if count[i] > times:
+                d[i] = count[i] - times
+                
+        l, r = 0, 0
+        c = len(d)
+        res = float('inf')
+        
+        if c == 0:
+            return 0
+        
+        while r < len(s):
+            ch = s[r]
+            if ch in d:
+                d[ch] -= 1
+                if d[ch] == 0:
+                    c -= 1
+                    
+            r += 1
+            while c == 0:
+                res = min(res, r - l)
+                ch = s[l]
+                if ch in d:
+                    d[ch] += 1
+                    if d[ch] > 0:
+                        c += 1
+                        
+                l += 1
+                
+        return res
