@@ -1,0 +1,28 @@
+class Solution:
+    # 从右往左遍历，找到一个可以替换的点，然后保证用点右边比它大的点中最小的那个和它替换。
+    # 然后再保证点右边是升序的，就完成了下一个序列
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums)-1, -1, -1):
+            
+            # 找到第一个数值变小的点， 这样表示右边有大的可以和它换，
+            # 并且可以保证是 next permutation
+            if i > 0 and nums[i] > nums[i-1]:
+                
+                # 找到后再倒序遍历， 找到第一个比刚才那个数大的点，交换
+                for j in range(len(nums)-1, i-1, -1):
+                    if nums[j] > nums[i-1]:
+                        nums[j], nums[i-1] = nums[i-1], nums[j]
+                        
+                        # 因为之前保证了，右边这段数从右到左是一直变大的，所以直接双指针reverse
+                        left, right = i, len(nums)-1
+                        while left <= right:
+                            nums[left], nums[right] = nums[right], nums[left]
+                            left += 1
+                            right -= 1
+                        return nums
+                    
+        nums.reverse()
+        return nums
