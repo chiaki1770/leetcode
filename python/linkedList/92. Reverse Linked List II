@@ -1,0 +1,35 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+# two pointer方法，p1总是在p2之前。
+
+# 先定义一个dummy node，dummy的next是head。p1指向dummy，p2指向head。
+# 开始翻转前先将p1和p2共同前进m-1步，用p1_frozen和p2_frozen记录下当前位置。然后再多前进一步，这样一共前进了m步。
+# 然后开始翻转，方法类似题目35. Reverse Linked List。
+# 翻转结束后p1_frozen和p2_frozen的next分别指向p1和p2。
+class Solution:
+    def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
+        dummy = ListNode(0)
+        dummy.next = head
+        p1 = dummy
+        p2 = head
+        for i in range(left-1):
+            p1 = p1.next
+            p2 = p2.next
+            
+        p1_frozen = p1
+        p2_frozen = p2
+        p1 = p1.next
+        p2 = p2.next
+        
+        for i in range(right-left):
+            p3 = p2.next
+            p2.next = p1
+            p1 = p2
+            p2 = p3
+            
+        p1_frozen.next = p1
+        p2_frozen.next = p2
