@@ -1,0 +1,36 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if root is None:
+            return
+        
+        parent = root
+        root.next = None
+        
+        while parent is not None:
+            last, first = None, None
+            while parent is not None:
+                for node in [parent.left, parent.right]:
+                    if node is None:
+                        continue
+                    self._connect(last, node)
+                    if last is None:
+                        first = node
+                    last = node
+                parent = parent.next
+            parent = first
+            
+        return root
+            
+    def _connect(self, prev, curt):
+        if prev is not None:
+            prev.next = curt
