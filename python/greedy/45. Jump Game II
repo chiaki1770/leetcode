@@ -1,0 +1,14 @@
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        cur, next_step = 0, 0
+        step = 0
+        
+        for i in range(n):
+            if cur < i:
+                step += 1
+                cur = next_step
+                
+            next_step = max(next_step, i + nums[i])
+            
+        return step
