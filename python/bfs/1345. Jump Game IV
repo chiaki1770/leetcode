@@ -1,0 +1,28 @@
+class Solution:
+    def minJumps(self, arr: List[int]) -> int:
+        n = len(arr)
+        d = collections.defaultdict(list)
+        
+        for i, num in enumerate(arr):
+            d[num].append(i)
+            
+        queue = deque([(0, 0)])
+        visited, visited_groups = set(), set()
+        
+        while queue:
+            steps, idx = queue.popleft()
+            if idx == n-1:
+                return steps
+            
+            for nb in [idx-1, idx+1]:
+                if 0 <= nb < n and nb not in visited:
+                    visited.add(nb)
+                    queue.append((steps+1, nb))
+                    
+            if arr[idx] not in visited_groups:
+                for nb in d[arr[idx]]:
+                    if nb not in visited:
+                        visited.add(nb)
+                        queue.append((steps+1, nb))
+                        
+                visited_groups.add(arr[idx])
