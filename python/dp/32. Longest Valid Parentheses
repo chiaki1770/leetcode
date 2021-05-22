@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/longest-valid-parentheses/discuss/123926/Best-Python-Solution-(Beats-100)
+
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
         ans, stack = 0, [-1]
