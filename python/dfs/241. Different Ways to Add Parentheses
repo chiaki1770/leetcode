@@ -1,0 +1,14 @@
+class Solution:
+    def diffWaysToCompute(self, input: str) -> List[int]:
+        if input.isdigit():
+            return [eval(input)]
+        res = []
+        for i, s in enumerate(input):
+            if s in "+-*":
+                l = self.diffWaysToCompute(input[:i])
+                r = self.diffWaysToCompute(input[i+1:])
+                res.extend(self.compute(l, r, s))
+        return res 
+
+    def compute(self, l, r, op):
+        return [eval(str(m)+op+str(n)) for m in l for n in r]
